@@ -7,7 +7,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   //Recuperar CEP
-  void _RecuperarCep() {}
+  void _RecuperarCep() {
+    //CEP
+    String cep = "01001000";
+    //URL
+    String url = "https://viacep.com.br/ws/${cep}/json/";
+  }
 
   @override
   Widget build(BuildContext context) {
