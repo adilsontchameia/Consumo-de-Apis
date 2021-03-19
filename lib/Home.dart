@@ -8,6 +8,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController _controllerCep = TextEditingController();
+  String _resultado = "Resultado";
+
   // Metodo de Recuperar CEP
   //Comunicacao Sincrona e Assincrona
   //Sincrona: Comunicacao instantanea (exe: conversa cara cara)
@@ -15,13 +18,15 @@ class _HomeState extends State<Home> {
   void _RecuperarCep() async {
     //Metodo Ansicrono
     /*
-    String cep = "01001000";
+    String cep = "04005020";
     //URL
     String url = "https://viacep.com.br/ws/${cep}/json/";
     */
 
+    String cepDigitado = _controllerCep.text;
+
     //URL CEP
-    String url = "https://viacep.com.br/ws/01001000/json/";
+    String url = "https://viacep.com.br/ws/${cepDigitado}/json/";
     //Criando Requisicoes
     //Importando a biblioteca http: ^0.12.0+1 no pubspec.
     http.Response response; //
@@ -36,10 +41,13 @@ class _HomeState extends State<Home> {
     String localidade = retorno["localidade"];
     String cep = retorno["cep"];
 
+    setState(() {
+      _resultado =
+          "${logradouro}, ${complemento}, ${bairro}, ${localidade}, ${cep}";
+    });
+
     print(
         "Resposta:  ${logradouro}, Complemento: ${complemento}, Bairro: ${bairro}, Localidade: ${localidade}, CEP: ${cep}.");
-
-    //print("Codigo: " + response.statusCode.toString());
     //print("Resposta: " + response.body);
   }
 
@@ -54,10 +62,18 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.all(40),
         child: Column(
           children: [
+            TextField(
+              keyboardType: TextInputType.number,
+              decoration:
+                  InputDecoration(labelText: "Digite o CEP  ex: 123456"),
+              style: TextStyle(fontSize: 20),
+              controller: _controllerCep,
+            ),
             RaisedButton(
               child: Text("Recuperar CEP"),
               onPressed: _RecuperarCep,
-            )
+            ),
+            Text(_resultado),
           ],
         ),
       ),
