@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   @override
@@ -27,9 +28,18 @@ class _HomeState extends State<Home> {
 
     //Recuperar os dados da web
     response = await http.get(url);
+    //Converter a REQ em JSON
+    Map<String, dynamic> retorno = json.decode(response.body);
+    String logradouro = retorno["logradouro"];
+    String complemento = retorno["complemento"];
+    String bairro = retorno["bairro"];
+    String localidade = retorno["localidade"];
+    String cep = retorno["cep"];
 
-    print("Codigo: " + response.statusCode.toString());
-    print("Resposta: " + response.body);
+    //print("Resposta: " ${logradouro});
+
+    //print("Codigo: " + response.statusCode.toString());
+    //print("Resposta: " + response.body);
   }
 
   @override
