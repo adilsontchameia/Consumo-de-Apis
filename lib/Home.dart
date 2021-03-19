@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   @override
@@ -6,12 +7,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //Recuperar CEP
-  void _RecuperarCep() {
-    //CEP
+  // Metodo de Recuperar CEP
+  //Comunicacao Sincrona e Assincrona
+  //Sincrona: Comunicacao instantanea (exe: conversa cara cara)
+  //Assincrona: Comunicacao por sms (com um intermediario), precisa de tempo.
+  void _RecuperarCep() async {
+    //Metodo Ansicrono
+    /*
     String cep = "01001000";
     //URL
     String url = "https://viacep.com.br/ws/${cep}/json/";
+    */
+
+    //URL CEP
+    String url = "https://viacep.com.br/ws/01001000/json/";
+    //Criando Requisicoes
+    //Importando a biblioteca http: ^0.12.0+1 no pubspec.
+    http.Response response; //
+
+    //Recuperar os dados da web
+    response = await http.get(url);
+
+    print("Codigo: " + response.statusCode.toString());
+    print("Resposta: " + response.body);
   }
 
   @override
