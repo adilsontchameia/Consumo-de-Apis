@@ -36,7 +36,8 @@ class _HomeState extends State<Home> {
     String localidade = retorno["localidade"];
     String cep = retorno["cep"];
 
-    //print("Resposta: " ${logradouro});
+    print(
+        "Resposta:  ${logradouro}, Complemento: ${complemento}, Bairro: ${bairro}, Localidade: ${localidade}, CEP: ${cep}.");
 
     //print("Codigo: " + response.statusCode.toString());
     //print("Resposta: " + response.body);
